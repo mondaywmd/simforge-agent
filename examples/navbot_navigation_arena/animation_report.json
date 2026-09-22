@@ -1,0 +1,9 @@
+{
+  "frames": 410,
+  "fps": 30,
+  "duration_seconds": 13.666666666666666,
+  "minimum_clearance_m": 0.03234969480911255,
+  "closest_frame": 365,
+  "closest_obstacle": "Rear boundary",
+  "description": "Preset keyframed route, independently verified at every frame using a conservative robot footprint; differential wheel rotation; not live navigation."
+}

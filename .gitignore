@@ -1,0 +1,12 @@
+.video_tools/
+*.blend1
+*.blend2
+*.blend@
+__pycache__/
+*.pyc
+animation_render_status.json
+renders/frames/
+renders/videos/*.tmp
+.DS_Store
+Thumbs.db
+
