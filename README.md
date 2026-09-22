@@ -8,6 +8,14 @@ This repository grew out of an earlier **Gazebo NavBot reinforcement-learning pr
 
 ![Navigation arena overview](renders/images/navbot_arena_overview.png)
 
+### Navigation animation
+
+The 410-frame Blender navigation sequence is available here:
+
+**[▶ Watch or download the MP4](renders/videos/navbot_navigation_animation.mp4)**
+
+The animation shows the TurtleBot3 Burger leaving its start zone, steering through the generated obstacle layout, rotating its wheels in sync with motion, and stopping at the goal.
+
 ## What this repository demonstrates
 
 1. Connect VS Code and a Codex agent to a Blender automation workflow.
@@ -119,7 +127,8 @@ For cross-simulator support, the project will evolve toward a canonical scene re
 
 ## Roadmap
 
-- Add the completed navigation MP4 and a lightweight preview GIF.
+- [x] Add the completed navigation MP4.
+- [ ] Add a lightweight preview GIF for inline playback.
 - Add Isaac Sim URDF/USD validation.
 - Add MuJoCo MJCF and Gazebo SDF adapters.
 - Generate collision proxies, inertial estimates, and semantic labels.
