@@ -4,6 +4,8 @@
 
 SimForge Agent is an early-stage experiment in connecting natural-language agents, digital-content tools, and robotics simulators. The first end-to-end example turns a TurtleBot3 Burger from a ROS/Gazebo workspace into an editable Blender navigation scene, static renders, and an animated navigation sequence.
 
+This repository grew out of an earlier **Gazebo NavBot reinforcement-learning project**. That project established the robot, sensing, navigation baselines, obstacle-avoidance experiments, and evaluation methodology that motivated the asset-generation workflow documented here. SimForge Agent is therefore not a disconnected Blender demo: it is the next infrastructure layer for building reusable digital environments around an existing robotics research pipeline.
+
 ![Navigation arena overview](renders/images/navbot_arena_overview.png)
 
 ## What this repository demonstrates
@@ -16,6 +18,43 @@ SimForge Agent is an early-stage experiment in connecting natural-language agent
 6. Render static overview and robot-detail frames.
 7. Add a collision-checked navigation animation with synchronized wheel rotation.
 8. Prepare the asset structure for future Isaac Sim, MuJoCo, Gazebo, and ROS adapters.
+
+## Origin: Gazebo NavBot project
+
+The source project studies TurtleBot3 Burger navigation in Gazebo using camera and LiDAR observations, ROS velocity control, and a sequence of classical and learning-based controllers. Its protected direct-goal baseline was validated after restart over ten episodes with 10/10 successes, zero collisions, and zero timeouts.
+
+The project then introduced a reproducible blocked-route benchmark: the robot starts at `(0, 0)`, an orange pillar blocks the direct path at `(1, 0)`, and the target lies at `(2, 0)`. A pure goal-seeking controller intentionally collides with the pillar, giving the experiments a clear control case and a measurable reason to learn a bypass behavior.
+
+The experimental sequence includes:
+
+- bounded residual actions layered over a direct-goal controller;
+- native residual PPO rollout and deterministic checkpoint evaluation;
+- a LiDAR-triggered control gate for obstacle takeover;
+- reward shaping for safer and more efficient bypass behavior;
+- behavior cloning from successful demonstrations;
+- balanced curriculum and adversarial out-of-distribution evaluation;
+- held-out scenario evaluation;
+- failure-mode generalization across pose and obstacle variations.
+
+The existing Gazebo work exposed a broader bottleneck: robot-learning experiments need many trustworthy scenes, assets, sensor configurations, and controlled variations. Building those environments manually does not scale. SimForge Agent explores how an AI agent can use Blender or Houdini as an intermediate asset-processing layer, generate simulation-ready environments, apply domain randomization, and export validated assets back to Isaac Sim, MuJoCo, Gazebo, and ROS.
+
+```text
+Gazebo NavBot navigation research
+        |
+        v
+Need for repeatable scenes and asset variation
+        |
+        v
+Codex Agent + Blender/Houdini asset pipeline
+        |
+        v
+Simulation-ready environments + domain randomization
+        |
+        v
+Isaac Sim / MuJoCo / Gazebo / ROS
+```
+
+This repository includes only the Blender/asset-pipeline case study. The complete NavBot training code, checkpoints, experiment logs, and detailed evaluation results are intentionally reserved for a dedicated future repository. See [NavBot project background](docs/navbot-project-background.md).
 
 ![Robot detail](renders/images/navbot_arena_detail.png)
 
@@ -98,4 +137,3 @@ TurtleBot3 description files and meshes are derived from ROBOTIS TurtleBot3 vers
 ## Status
 
 Research prototype. The Blender workflow is reproducible; simulator adapters and bidirectional validation are planned work.
-

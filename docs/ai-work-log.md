@@ -7,6 +7,8 @@
 
 Establish an end-to-end workflow from a ROS/Gazebo robot asset to an editable Blender environment, static renders, and an animated navigation demonstration, while preserving a path toward physics-capable assets in Isaac Sim, MuJoCo, Gazebo, and ROS.
 
+The immediate source was the earlier Gazebo NavBot PPO project. Its direct-goal baseline, reproducible single-pillar failure case, residual-control experiments, behavior-cloning work, and generalization evaluations established both the robot configuration and the need for a scalable environment-production workflow. Full NavBot training artifacts remain outside this repository and are planned for a dedicated publication.
+
 ## Milestones
 
 ### 1. VS Code and agent setup
@@ -46,4 +48,3 @@ Because the render did not keep individual PNG frames, an interruption could lea
 - Validate static frames before committing to an animation render.
 - Prefer image sequences for long or important renders.
 - Build simulator adapters around a canonical representation instead of assuming lossless direct conversion.
-

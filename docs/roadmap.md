@@ -1,5 +1,12 @@
 # Roadmap
 
+## Related NavBot publication
+
+- [x] Document NavBot as the origin and first SimForge Agent case study.
+- [ ] Publish a separate NavBot repository with training code and reproducible setup.
+- [ ] Add protected baseline validation and single-pillar benchmark documentation.
+- [ ] Publish experiment configurations, checkpoints, evaluation tables, and failure analyses after review.
+
 ## Phase 1 — Agent-to-Blender workflow
 
 - [x] Connect the Codex workflow to Blender automation.
@@ -37,4 +44,3 @@
 - [ ] Add Blender and Houdini procedural cleanup stages.
 - [ ] Implement domain-randomization recipes.
 - [ ] Automate cross-simulator validation and regression tests.
-
