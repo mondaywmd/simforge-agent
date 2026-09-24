@@ -48,3 +48,26 @@ Because the render did not keep individual PNG frames, an interruption could lea
 - Validate static frames before committing to an animation render.
 - Prefer image sequences for long or important renders.
 - Build simulator adapters around a canonical representation instead of assuming lossless direct conversion.
+
+---
+
+## 2026-09-23 — Reality capture and Isaac Sim handoff
+
+The next experiment moved from a synthetic arena to a real apartment corridor. A Scaniverse LiDAR capture established spatial evidence; fifteen reference photographs supplied object, material, lighting, and occlusion detail. The work compared three representations instead of committing to the first visually attractive result.
+
+### Method comparison
+
+1. The raw LiDAR mesh was useful for proportions but carried holes, irregular topology, fused objects, and captured-light artifacts.
+2. A repaired LiDAR version improved continuity, yet remained difficult to edit and to divide into reliable simulation components.
+3. Scaniverse Gaussian Splatting produced an appealing view-dependent reconstruction, but did not provide the clean surfaces, object separation, collision geometry, or controllable materials needed for a robot-training scene.
+4. A modular Blender reconstruction, guided by LiDAR dimensions and photographs, produced the strongest balance of recognizable appearance and simulation readiness.
+
+### Sim-ready conversion
+
+The chosen scene was reorganized without flattening its editable source hierarchy. A protected visual collection and simplified collision collection were created separately. Doors, openings, floor support, furniture obstacles, cameras, lights, and textures were audited. The USD handoff uses meters, Z-up, relative asset paths, one root normalization transform, and separate visual/collision layers.
+
+Static checks covered references, textures, units, floor height, collision coverage, start footprint, and a conservative route probe. The package was copied to a different directory and reopened to test portability; a USD round-trip render confirmed the scene survived export and re-import. These checks do not replace Isaac Sim runtime tests. Robot contact, friction, navigation, RGB/depth output, and RTX LiDAR response remain explicit target-machine validation gates.
+
+### Decision
+
+For this indoor robotics scene, the selected pipeline is **LiDAR as measurement evidence + modular Blender reconstruction + photo-guided materials + separated simulation layers**. Gaussian Splatting remains useful for visual reference and view synthesis, not as the primary editable Sim-ready asset.

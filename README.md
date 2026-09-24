@@ -18,16 +18,38 @@ The 410-frame Blender navigation sequence plays inline as a lightweight GIF prev
 
 The animation shows the TurtleBot3 Burger leaving its start zone, steering through the generated obstacle layout, rotating its wheels in sync with motion, and stopping at the goal.
 
+## New case study: apartment corridor to Sim-ready USD
+
+The second end-to-end study reconstructs a real indoor corridor from photographs and a Scaniverse LiDAR capture, compares three scene-building approaches, and prepares the selected Blender scene for Isaac Sim.
+
+![Reality-capture method comparison](renders/reality-capture/method-comparison.jpg)
+
+The tested approaches were:
+
+- **Photo-reference reconstruction** for clean, editable architecture and separated objects.
+- **LiDAR mesh repair** for measured proportions and a fast spatial reference, with substantial cleanup required around thin surfaces, holes, and noisy topology.
+- **Gaussian Splatting** for a convincing view-dependent appearance, but weak editable geometry, collision preparation, and component separation for this indoor robotics use case.
+
+The selected path combines LiDAR measurements with modular Blender reconstruction and photo-guided materials. It preserves low-noise geometry, separate components, recognizable lighting and materials, and a much clearer path toward collision meshes, semantic structure, and simulator validation.
+
+The Sim-ready handoff keeps `SIM_Visual` and `SIM_Collision` separate, normalizes the environment under one root transform, exports relative USD references, generates a diagnostic occupancy map and route probe, and performs a relocated-folder round-trip check. Isaac Sim runtime validation is still required on a machine with Isaac Sim installed.
+
+![Sim-ready Blender hierarchy](renders/reality-capture/sim-ready-blender-outliner.png)
+
+![USD round-trip preview](renders/reality-capture/usd-roundtrip-preview.png)
+
+Read the full [reality-capture study](docs/reality-capture-to-sim-ready.md) and [Isaac Sim handoff notes](docs/isaac-sim-handoff.md).
+
 ## What this repository demonstrates
 
 1. Connect VS Code and a Codex agent to a Blender automation workflow.
 2. Validate scene control with a simple red-sphere test.
 3. Locate and collect a Gazebo robot's URDF, xacro, and mesh dependencies from WSL.
 4. Import TurtleBot3 Burger into Blender while preserving scale, link hierarchy, object origins, and joint metadata.
-5. Reconstruct a navigation arena from requirements and visual references.
+5. Reconstruct navigation environments from requirements, photographs, and LiDAR references.
 6. Render static overview and robot-detail frames.
 7. Add a collision-checked navigation animation with synchronized wheel rotation.
-8. Prepare the asset structure for future Isaac Sim, MuJoCo, Gazebo, and ROS adapters.
+8. Prepare separated visual/collision assets and a portable USD handoff for Isaac Sim validation.
 
 ## Origin: Gazebo NavBot project
 
@@ -64,7 +86,7 @@ Simulation-ready environments + domain randomization
 Isaac Sim / MuJoCo / Gazebo / ROS
 ```
 
-This repository includes only the Blender/asset-pipeline case study. The complete NavBot training code, checkpoints, experiment logs, and detailed evaluation results are intentionally reserved for a dedicated future repository. See [NavBot project background](docs/navbot-project-background.md).
+This repository contains the Blender and asset-pipeline case studies. The NavBot training code and experiment documentation now live in the separate [navbot-ppo-navigation repository](https://github.com/mondaywmd/navbot-ppo-navigation). See [NavBot project background](docs/navbot-project-background.md) for the connection between the two projects.
 
 ![Robot detail](renders/images/navbot_arena_detail.png)
 
@@ -115,7 +137,7 @@ assets/      TurtleBot3 visual assets and upstream license
 urdf/        Expanded TurtleBot3 Burger URDF
 blender/     Robot, arena, and animation scenes
 scripts/     Repeatable Blender automation scripts
-renders/     Static images and future videos
+renders/     Static images, method comparisons, and video previews
 examples/    Machine-readable import and animation reports
 docs/        Workflow, architecture, work log, and roadmap
 adapters/    Planned simulator/export adapters
@@ -131,11 +153,12 @@ For cross-simulator support, the project will evolve toward a canonical scene re
 
 - [x] Add the completed navigation MP4.
 - [x] Add a lightweight preview GIF for inline playback.
-- Add Isaac Sim URDF/USD validation.
+- [x] Prepare a portable corridor USD package and offline validation scripts.
+- Add runtime Isaac Sim collision, navigation, RGB, depth, and RTX LiDAR validation.
 - Add MuJoCo MJCF and Gazebo SDF adapters.
 - Generate collision proxies, inertial estimates, and semantic labels.
-- Ingest photographs, video, depth data, and LiDAR.
-- Add Blender/Houdini procedural asset cleanup.
+- [x] Compare photograph, LiDAR, and Gaussian Splatting inputs for an indoor corridor.
+- [x] Add Blender-based architecture reconstruction and LiDAR cleanup experiments.
 - Add domain randomization for geometry, materials, lighting, sensors, and physics.
 - Build closed-loop validation across simulators.
 
