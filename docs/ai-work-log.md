@@ -71,3 +71,18 @@ Static checks covered references, textures, units, floor height, collision cover
 ### Decision
 
 For this indoor robotics scene, the selected pipeline is **LiDAR as measurement evidence + modular Blender reconstruction + photo-guided materials + separated simulation layers**. Gaussian Splatting remains useful for visual reference and view synthesis, not as the primary editable Sim-ready asset.
+
+
+---
+
+## 2026-09-24 — Isaac Sim downstream runtime validation
+
+Connected the portable Blender corridor USD and the existing NavBot URDF-derived robot in native Windows Isaac Sim 6.1. Cube contact and a separate bounce material demonstration were followed by flat-ground forward / turn tests and local corridor floor / wall tests.
+
+The corridor run advanced about 0.376 m in 4.07 simulation seconds; a separate side-wall run was physically blocked without observed penetration. These are local contact checks, not autonomous obstacle avoidance. Sensor integration and full-route validation remain pending.
+
+The work also exposed Play-triggered USD crashes. Disabling automatic asynchronous-rendering toggling and keeping synchronous rendering allowed five Play/Stop cycles and subsequent tests to complete; the root cause remains unconfirmed. A timing bug in the test setup was corrected by authoring the timeline range and measuring simulation time rather than counting viewport updates.
+
+Three scene-specific Python examples were published and rerun: motion control, collision validation, and native viewport recording. The 20-second video is hosted on the website; a corridor image and machine-readable rerun reports are kept here. Robot USD and complete Isaac Sim scenes remain in the separate NavBot project.
+
+See [full evidence and reproduction notes](isaac-sim-runtime-validation.md), [Python examples](../adapters/isaacsim/examples/README.md), and [the illustrated devlog](https://mondaywmd.github.io/monday-robotics-universe/isaac-navbot.html).

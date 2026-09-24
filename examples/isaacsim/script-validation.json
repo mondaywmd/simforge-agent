@@ -1,0 +1,14 @@
+[
+  {
+    "script": "control_navbot.py",
+    "passed": true
+  },
+  {
+    "script": "test_corridor_collision.py",
+    "passed": true
+  },
+  {
+    "script": "record_corridor.py",
+    "passed": true
+  }
+]

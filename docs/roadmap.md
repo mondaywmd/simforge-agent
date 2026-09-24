@@ -33,7 +33,9 @@
 
 - [x] Prepare a portable corridor USD package with separated visual and collision layers.
 - [x] Add static validation, portability checks, route probing, and round-trip preview.
-- [ ] Run Isaac Sim runtime collision, navigation, RGB, depth, and RTX LiDAR validation.
+- [x] Run local Isaac Sim cube contact, NavBot drive/turn and corridor wall-blocking tests.
+- [x] Publish scene-specific motion, collision and recording examples with runtime evidence.
+- [ ] Expand collision coverage and validate navigation, RGB, depth, and RTX LiDAR.
 - [ ] Generate and validate MuJoCo MJCF.
 - [ ] Generate and validate Gazebo SDF/URDF packages.
 - [ ] Add ROS 2 package and launch examples.

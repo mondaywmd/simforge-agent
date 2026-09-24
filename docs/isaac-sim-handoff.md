@@ -32,7 +32,11 @@ The corridor was prepared as a portable USD asset package, not declared fully va
 
 “Round trip” means Blender scene → USD package → reopened USD → verification render. It answers whether the exported asset can be reconstructed from its own portable references. It does **not** mean the asset has completed robot or sensor validation.
 
-## Required target-machine tests
+## Runtime progress — September 24, 2026
+
+Isaac Sim 6.1 on Windows now has local cube contact/bounce, robot import, flat-ground drive/turn and short corridor / side-wall checks. See the [runtime validation record](isaac-sim-runtime-validation.md) for measurements, video, scripts and boundaries. This partially addresses the gates below; full-route, sensor and calibration checks remain open.
+
+## Target-machine validation gates
 
 1. Open `test_scene.usda` in the intended Isaac Sim version and confirm no missing assets or schema errors.
 2. Drop a dynamic body onto the floor and raycast the floor, walls, and major obstacles.

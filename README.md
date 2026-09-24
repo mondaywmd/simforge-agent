@@ -32,13 +32,26 @@ The tested approaches were:
 
 The selected path combines LiDAR measurements with modular Blender reconstruction and photo-guided materials. It preserves low-noise geometry, separate components, recognizable lighting and materials, and a much clearer path toward collision meshes, semantic structure, and simulator validation.
 
-The Sim-ready handoff keeps `SIM_Visual` and `SIM_Collision` separate, normalizes the environment under one root transform, exports relative USD references, generates a diagnostic occupancy map and route probe, and performs a relocated-folder round-trip check. Isaac Sim runtime validation is still required on a machine with Isaac Sim installed.
+The Sim-ready handoff keeps `SIM_Visual` and `SIM_Collision` separate, normalizes the environment under one root transform, exports relative USD references, generates a diagnostic occupancy map and route probe, and performs a relocated-folder round-trip check. Local Isaac Sim 6.1 runtime checks now cover rigid-body contact, NavBot driving and one corridor wall. Full-route and sensor validation remain open; see the runtime evidence below.
 
 ![Sim-ready Blender hierarchy](renders/reality-capture/sim-ready-blender-outliner.png)
 
 ![USD round-trip preview](renders/reality-capture/usd-roundtrip-preview.png)
 
 Read the full [reality-capture study](docs/reality-capture-to-sim-ready.md) and [Isaac Sim handoff notes](docs/isaac-sim-handoff.md).
+
+## Isaac Sim runtime update — September 24, 2026
+
+The generated corridor now supports a local physics test with NavBot: the robot settles, drives about 38 cm along the corridor, and is blocked by a side wall. Flat-ground forward and turn tests passed as well. These are physical simulation results, separate from the earlier Blender navigation animation.
+
+![NavBot in the generated corridor](renders/isaacsim/navbot-corridor.png)
+
+- [Runtime validation record, measurements and limitations](docs/isaac-sim-runtime-validation.md)
+- [20-second test video](https://mondaywmd.github.io/monday-robotics-universe/assets/omniverse/navbot-corridor/corridor-test.mp4)
+- [Python examples: motion, collision and native capture](adapters/isaacsim/examples/README.md)
+- [Illustrated devlog and UI walkthrough](https://mondaywmd.github.io/monday-robotics-universe/isaac-navbot.html)
+
+The examples require the separate NavBot Isaac Sim scenes; they are not a complete simulator adapter. Original fall-through placement, full-room coverage, sensors and autonomous navigation remain unvalidated. The record also documents Play crashes and a synchronous-rendering workaround without claiming a proven root cause.
 
 ## What this repository demonstrates
 
@@ -50,6 +63,7 @@ Read the full [reality-capture study](docs/reality-capture-to-sim-ready.md) and 
 6. Render static overview and robot-detail frames.
 7. Add a collision-checked navigation animation with synchronized wheel rotation.
 8. Prepare separated visual/collision assets and a portable USD handoff for Isaac Sim validation.
+9. Validate local robot contact, driving and wall blocking in Isaac Sim with scene-specific Python examples.
 
 ## Origin: Gazebo NavBot project
 
@@ -140,7 +154,7 @@ scripts/     Repeatable Blender automation scripts
 renders/     Static images, method comparisons, and video previews
 examples/    Machine-readable import and animation reports
 docs/        Workflow, architecture, work log, and roadmap
-adapters/    Planned simulator/export adapters
+adapters/    Planned adapters and scene-specific Isaac Sim validation examples
 ```
 
 ## Design principle
@@ -154,7 +168,8 @@ For cross-simulator support, the project will evolve toward a canonical scene re
 - [x] Add the completed navigation MP4.
 - [x] Add a lightweight preview GIF for inline playback.
 - [x] Prepare a portable corridor USD package and offline validation scripts.
-- Add runtime Isaac Sim collision, navigation, RGB, depth, and RTX LiDAR validation.
+- [x] Run local Isaac Sim rigid-body, NavBot motion and corridor collision checks.
+- [ ] Expand collision coverage, navigation, RGB, depth, and RTX LiDAR validation.
 - Add MuJoCo MJCF and Gazebo SDF adapters.
 - Generate collision proxies, inertial estimates, and semantic labels.
 - [x] Compare photograph, LiDAR, and Gaussian Splatting inputs for an indoor corridor.
@@ -170,4 +185,4 @@ TurtleBot3 description files and meshes are derived from ROBOTIS TurtleBot3 vers
 
 ## Status
 
-Research prototype. The Blender workflow is reproducible; simulator adapters and bidirectional validation are planned work.
+Research prototype. The Blender workflow is reproducible, and scene-specific Isaac Sim runtime examples have been exercised. General simulator adapters and bidirectional validation remain planned work.
