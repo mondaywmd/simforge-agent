@@ -1,5 +1,7 @@
 # SimForge Agent
 
+[Website](https://mondaywmd.github.io/monday-robotics-universe/) · [Project & experiments](https://mondaywmd.github.io/monday-robotics-universe/room-capture.html) · [About Monday](https://mondaywmd.github.io/monday-robotics-universe/about.html)
+
 **An AI-agent workflow for creating simulation-ready environments and robot assets across Blender, Isaac Sim, MuJoCo, Gazebo, and ROS.**
 
 SimForge Agent is an early-stage experiment in connecting natural-language agents, digital-content tools, and robotics simulators. The first end-to-end example turns a TurtleBot3 Burger from a ROS/Gazebo workspace into an editable Blender navigation scene, static renders, and an animated navigation sequence.
